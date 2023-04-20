@@ -4,12 +4,12 @@ Wrapper for Vue3 with super powers of [muscle group selector](https://codepen.io
 
 ---
 
-**Basic**
+### Basic
 ![Vue Muscle Group Selector](./docs/main.png)
 
 ---
 
-**More options**
+### More options
 ![Vue Muscle Group Selector](./docs/main-with-list-and-multiple.png)
 
 ## Get started
