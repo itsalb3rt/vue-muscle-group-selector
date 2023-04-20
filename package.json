@@ -1,6 +1,5 @@
 {
   "name": "vue-muscle-group-selector",
-  "private": true,
   "version": "0.0.1",
   "main": "./dist/vue-muscle-group-selector.umd.js",
   "module": "./dist/vue-muscle-group-selector.es.js",
@@ -24,7 +23,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
-    "babel-eslint": "^10.1.0",
     "vite": "^4.2.0"
   }
 }
