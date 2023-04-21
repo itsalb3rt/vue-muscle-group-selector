@@ -1,8 +1,30 @@
 {
   "name": "vue-muscle-group-selector",
+  "description": "Wrapper for Vue3 with super powers of muscle group selector made by Ryan M. Poe.",
   "version": "0.0.2",
   "main": "./dist/vue-muscle-group-selector.umd.js",
   "module": "./dist/vue-muscle-group-selector.mjs",
+  "repository": {
+    "url": "https://github.com/itsalb3rt/vue-muscle-group-selector"
+  },
+  "keywords": [
+    "vue3",
+    "muscle-group-selector",
+    "muscle groups",
+    "selector",
+    "fitness",
+    "exercise",
+    "workout",
+    "health",
+    "wellness",
+    "gym",
+    "bodybuilding",
+    "weightlifting",
+    "strength training",
+    "physical therapy",
+    "rehabilitation"
+  ],
+  "license": "MIT",
   "exports": {
     ".": {
       "import": "./dist/vue-muscle-group-selector.mjs",
