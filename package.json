@@ -38,6 +38,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:spa": "vite build -c vite.config.spa.js", 
     "preview": "vite preview"
   },
   "dependencies": {
