@@ -2,9 +2,11 @@
 
 Wrapper for Vue3 with super powers of [muscle group selector](https://codepen.io/baublet/pen/PzjmpL) made by [Ryan M. Poe](https://www.ryanmpoe.com/).
 
+[Demo](https://vue-muscle-group-selector.netlify.app/)
+
 ---
 
-![Vue Muscle Group Selector](./docs/main.jpg)
+![Vue Muscle Group Selector](https://github.com/itsalb3rt/vue-muscle-group-selector/blob/master/docs/main.jpg?raw=true)
 
 ---
 
