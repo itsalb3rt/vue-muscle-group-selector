@@ -43,19 +43,50 @@ const handleOnSelectMuscularGroup = selection => {
 
 ## Props
 
-**allowMultiple**`[BOOLEAN]`: If true, the user can select multiple muscle groups, if false, the user can only select one muscle group.
+| Prop  | Type | Description | Default |
+|-------|------|-------------|---------|
+| allowMultiple | `BOOLEAN` | If true, the user can select multiple muscle groups, if false, the user can only select one muscle group. | `false` |
+| primaryColor | `STRING` | The primary color of the component, this is the color of the selected muscle groups. | `#03001c` |
+| initialValues | `ARRAY` | Array of muscle groups to be selected by default, this is the ID of the muscle group, not the name. | `[]` |
+| showMusclesListHelper | `BOOLEAN` | If true, the helper list of the muscle groups will be shown, if false, the helper list will be hidden. | `false` |
+| showBackMuscles | `BOOLEAN` | If true, the legs muscle groups will be shown, if false, the legs muscle groups will be hidden. | `true` |
+| showFrontMuscles | `BOOLEAN` | If true, the back muscle groups will be shown, if false, the back muscle groups will be hidden. | `true` |
+| translations | `OBJECT` | The translations of the muscle groups, the keys are the IDs of the muscle groups, the values are the names of the muscle groups. | `object` |
 
-**primaryColor** `[STRING]`: The primary color of the component, this is the color of the selected muscle groups.
+### translations
 
-**initialValues** `[ARRAY]`:  Array of muscle groups to be selected by default, this is the ID of the muscle group, not the name.
+The component has a `translations` prop to set all the labels of the component, below you can view the default values of this prop.
 
-**showMusclesListHelper** `[BOOLEAN]`: If true, the helper list of the muscle groups will be shown, if false, the helper list will be hidden.
-
-**showBackMuscles** `[BOOLEAN]`: If true, the legs muscle groups will be shown, if false, the legs muscle groups will be hidden.
-
-**showFrontMuscles** `[BOOLEAN]`: If true, the back muscle groups will be shown, if false, the back muscle groups will be hidden.
-
-**translations** `[OBJECT]`: The translations of the muscle groups, the keys are the IDs of the muscle groups, the values are the names of the muscle groups.
+```javascript
+{
+  arms: {
+    arms: "Arms",
+    bicpes: "Biceps",
+    deltoids: "Deltoids",
+    forearms: "Forearms",
+    triceps: "Triceps",
+  },
+  back: {
+    back: "Back",
+    trapezius: "Trapezius",
+    lats: "Lats",
+  },
+  core: {
+    core: "Core",
+    abs: "Abs",
+    obliques: "Obliques",
+    pectorals: "Pectorals",
+  },
+  legs: {
+    legs: "Legs",
+    adductors: "Adductors",
+    calves: "Calves",
+    hamstrings: "Hamstrings",
+    glutes: "Glutes",
+    quads: "Quads",
+  }
+}
+```
 
 ## Events
 
