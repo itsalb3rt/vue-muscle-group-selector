@@ -7,9 +7,8 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.js'),
+      entry: path.resolve(__dirname, 'src/components/MuscleGroupSelector.vue'),
       name: 'vue-muscle-group-selector',
-      fileName: format => `vue-muscle-group-selector.${format}.js`,
     },
     rollupOptions:{
       external: ['vue'],

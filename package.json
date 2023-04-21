@@ -2,10 +2,10 @@
   "name": "vue-muscle-group-selector",
   "version": "0.0.1",
   "main": "./dist/vue-muscle-group-selector.umd.js",
-  "module": "./dist/vue-muscle-group-selector.es.js",
+  "module": "./dist/vue-muscle-group-selector.mjs",
   "exports": {
     ".": {
-      "import": "./dist/vue-muscle-group-selector.es.js",
+      "import": "./dist/vue-muscle-group-selector.mjs",
       "require": "./dist/vue-muscle-group-selector.umd.js"
     },
     "./dist/style.css": "./dist/style.css"
