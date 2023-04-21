@@ -23,6 +23,7 @@ yarn add vue-muscle-group-selector
 ```html
 <script setup>
 import VueMuscleGroupSelector from "vue-muscle-group-selector";
+import "vue-muscle-group-selector/dist/style.css";
 
 const handleOnSelectMuscularGroup = selection => {
   console.log(selection) // array of selection e.g ['abs']
