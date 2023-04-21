@@ -90,7 +90,9 @@ The component has a `translations` prop to set all the labels of the component, 
 
 ## Events
 
-**onSelect**: This event is dispatched when the user selects any muscular group and returns an array of the selection.
+| Event     | Description                                                                                                       |
+|-----------|-------------------------------------------------------------------------------------------------------------------|
+| onSelect  | This event is dispatched when the user selects any muscular group and returns an array of the selection. |
 
 ## Give a Star! ⭐
 
