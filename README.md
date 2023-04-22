@@ -54,6 +54,7 @@ const handleOnSelectMuscularGroup = selection => {
 | showBackMuscles | `BOOLEAN` | If true, the legs muscle groups will be shown, if false, the legs muscle groups will be hidden. | `true` |
 | showFrontMuscles | `BOOLEAN` | If true, the back muscle groups will be shown, if false, the back muscle groups will be hidden. | `true` |
 | translations | `OBJECT` | The translations of the muscle groups, the keys are the IDs of the muscle groups, the values are the names of the muscle groups. | `object` |
+| readOnly | `BOOLEAN` | Use with the initial values to only show the selected muscle group | `false` |
 
 ### translations
 
