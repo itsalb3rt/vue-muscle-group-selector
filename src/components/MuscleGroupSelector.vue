@@ -217,9 +217,9 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue';
 export default {
-  name: "ComponentMuscleGroupsSelector",
+  name: 'ComponentMuscleGroupsSelector',
   props: {
     /**
      * If true, the user can select multiple muscle groups, if false,
@@ -235,7 +235,7 @@ export default {
      */
     primaryColor: {
       type: String,
-      default: "#03001c",
+      default: '#03001c',
     },
     /**
      * Array of muscle groups to be selected by default, this is the
@@ -270,6 +270,13 @@ export default {
       default: true,
     },
     /**
+     * Use with the initial values to only show the selected muscle group
+     */
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * The translations of the muscle groups, the keys are the IDs of
      * the muscle groups, the values are the names of the muscle groups.
      */
@@ -277,37 +284,37 @@ export default {
       type: Object,
       default: () => ({
         arms: {
-          arms: "Arms",
-          bicpes: "Biceps",
-          deltoids: "Deltoids",
-          forearms: "Forearms",
-          triceps: "Triceps",
+          arms: 'Arms',
+          bicpes: 'Biceps',
+          deltoids: 'Deltoids',
+          forearms: 'Forearms',
+          triceps: 'Triceps',
         },
         back: {
-          back: "Back",
-          trapezius: "Trapezius",
-          lats: "Lats",
+          back: 'Back',
+          trapezius: 'Trapezius',
+          lats: 'Lats',
         },
         core: {
-          core: "Core",
-          abs: "Abs",
-          obliques: "Obliques",
-          pectorals: "Pectorals",
+          core: 'Core',
+          abs: 'Abs',
+          obliques: 'Obliques',
+          pectorals: 'Pectorals',
         },
         legs: {
-          legs: "Legs",
-          adductors: "Adductors",
-          calves: "Calves",
-          hamstrings: "Hamstrings",
-          glutes: "Glutes",
-          quads: "Quads",
+          legs: 'Legs',
+          adductors: 'Adductors',
+          calves: 'Calves',
+          hamstrings: 'Hamstrings',
+          glutes: 'Glutes',
+          quads: 'Quads',
         },
       }),
     },
   },
   setup(props, { emit }) {
-    const musculeGroupsContainerAlignItemsBind = ref("center");
-    const musculeGroupsSVGPositionBind = ref("absolute");
+    const musculeGroupsContainerAlignItemsBind = ref('center');
+    const musculeGroupsSVGPositionBind = ref('absolute');
 
     const onSelectMuscleGroup = () => {
       // get all the checked checkboxes
@@ -319,7 +326,7 @@ export default {
       const values = Array.from(checked).map((el) => el.id);
 
       // emit the values to the parent component
-      emit("onSelect", values);
+      emit('onSelect', values);
     };
 
     onMounted(() => {
@@ -335,7 +342,7 @@ export default {
       );
 
       checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", () => {
+        checkbox.addEventListener('change', () => {
           if (props.allowMultiple) {
             onSelectMuscleGroup();
             return;
@@ -350,9 +357,21 @@ export default {
       });
 
       document
-        .querySelectorAll(".muscle-groups svg g g[id]")
+        .querySelectorAll('.muscle-groups svg g g[id]')
         .forEach(function (group) {
-          group.addEventListener("click", function (el) {
+          
+          if(props.readOnly) {
+            group.querySelectorAll('g path').forEach(path => {
+              path.style.pointerEvents = 'none';
+            });
+          }
+
+          group.addEventListener('click', function (el) {
+            
+            if (props.readOnly) {
+              return;
+            }
+
             let id = el.target.parentNode.id.toLowerCase();
             // To make a sure if no have a second parent
             if (!id) {
@@ -370,7 +389,7 @@ export default {
               onSelectMuscleGroup();
             } else {
               document
-                .querySelectorAll(".muscle-groups input")
+                .querySelectorAll('.muscle-groups input')
                 .forEach(function (input) {
                   input.checked = false;
                 });
@@ -383,47 +402,47 @@ export default {
       // Hide the helper list if the user doesn't want it
       if (!props.showMusclesListHelper) {
         document
-          .querySelectorAll(".muscle-groups-container label")
+          .querySelectorAll('.muscle-groups-container label')
           .forEach((el) => {
-            el.style.display = "none";
+            el.style.display = 'none';
           });
 
         document
-          .querySelectorAll(".muscle-groups-container h2.list-title")
+          .querySelectorAll('.muscle-groups-container h2.list-title')
           .forEach((el) => {
-            el.style.display = "none";
+            el.style.display = 'none';
           });
-        musculeGroupsContainerAlignItemsBind.value = "normal";
-        musculeGroupsSVGPositionBind.value = "none";
+        musculeGroupsContainerAlignItemsBind.value = 'normal';
+        musculeGroupsSVGPositionBind.value = 'none';
       }
 
       // Hide the front muscles if the user doesn't want it
       if (!props.showFrontMuscles) {
         document.querySelector(
-          ".muscle-groups-container #Front-Muscles"
-        ).style.display = "none";
+          '.muscle-groups-container #Front-Muscles'
+        ).style.display = 'none';
         document.querySelector(
-          ".muscle-groups-container path#Front"
-        ).style.display = "none";
+          '.muscle-groups-container path#Front'
+        ).style.display = 'none';
       }
 
       // Hide the back muscles if the user doesn't want it
       if (!props.showBackMuscles) {
         document.querySelector(
-          ".muscle-groups-container #Back-Muscles"
-        ).style.display = "none";
+          '.muscle-groups-container #Back-Muscles'
+        ).style.display = 'none';
         document.querySelector(
-          ".muscle-groups-container path#Back"
-        ).style.display = "none";
+          '.muscle-groups-container path#Back'
+        ).style.display = 'none';
       }
 
       if (!props.showFrontMuscles && props.showBackMuscles) {
         document.querySelector(
-          ".muscle-groups-container #Back-Muscles"
-        ).style.transform = "translate(-100px, 0px)";
+          '.muscle-groups-container #Back-Muscles'
+        ).style.transform = 'translate(-100px, 0px)';
         document.querySelector(
-          ".muscle-groups-container path#Back"
-        ).style.transform = "translate(-100px, 0px)";
+          '.muscle-groups-container path#Back'
+        ).style.transform = 'translate(-100px, 0px)';
       }
     });
 
@@ -493,105 +512,105 @@ export default {
 .muscle-groups .muscles-helper {
   display: none;
 }
-.muscle-groups label[for="obliques"]:hover ~ svg #Obliques path {
+.muscle-groups label[for='obliques']:hover ~ svg #Obliques path {
   opacity: 0.75;
 }
 .muscle-groups .obliques:checked ~ svg #Obliques path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="abs"]:hover ~ svg #Abs path {
+.muscle-groups label[for='abs']:hover ~ svg #Abs path {
   opacity: 0.75;
 }
 .muscle-groups .abs:checked ~ svg #Abs path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="quads"]:hover ~ svg #Quads path {
+.muscle-groups label[for='quads']:hover ~ svg #Quads path {
   opacity: 0.75;
 }
 .muscle-groups .quads:checked ~ svg #Quads path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="biceps"]:hover ~ svg #Biceps path {
+.muscle-groups label[for='biceps']:hover ~ svg #Biceps path {
   opacity: 0.75;
 }
 .muscle-groups .biceps:checked ~ svg #Biceps path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="adductors"]:hover ~ svg #Adductors path {
+.muscle-groups label[for='adductors']:hover ~ svg #Adductors path {
   opacity: 0.75;
 }
 .muscle-groups .adductors:checked ~ svg #Adductors path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="pectorals"]:hover ~ svg #Pectorals path {
+.muscle-groups label[for='pectorals']:hover ~ svg #Pectorals path {
   opacity: 0.75;
 }
 .muscle-groups .pectorals:checked ~ svg #Pectorals path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="deltoids"]:hover ~ svg #Deltoids path {
+.muscle-groups label[for='deltoids']:hover ~ svg #Deltoids path {
   opacity: 0.75;
 }
 .muscle-groups .deltoids:checked ~ svg #Deltoids path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="hamstrings"]:hover ~ svg #Hamstrings path {
+.muscle-groups label[for='hamstrings']:hover ~ svg #Hamstrings path {
   opacity: 0.75;
 }
 .muscle-groups .hamstrings:checked ~ svg #Hamstrings path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="quads"]:hover ~ svg #Quads path {
+.muscle-groups label[for='quads']:hover ~ svg #Quads path {
   opacity: 0.75;
 }
 .muscle-groups .quads:checked ~ svg #Quads path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="forearms"]:hover ~ svg #Forearms path {
+.muscle-groups label[for='forearms']:hover ~ svg #Forearms path {
   opacity: 0.75;
 }
 .muscle-groups .forearms:checked ~ svg #Forearms path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="calves"]:hover ~ svg #Calves path {
+.muscle-groups label[for='calves']:hover ~ svg #Calves path {
   opacity: 0.75;
 }
 .muscle-groups .calves:checked ~ svg #Calves path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="triceps"]:hover ~ svg #Triceps path {
+.muscle-groups label[for='triceps']:hover ~ svg #Triceps path {
   opacity: 0.75;
 }
 .muscle-groups .triceps:checked ~ svg #Triceps path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="glutes"]:hover ~ svg #Glutes path {
+.muscle-groups label[for='glutes']:hover ~ svg #Glutes path {
   opacity: 0.75;
 }
 .muscle-groups .glutes:checked ~ svg #Glutes path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="lats"]:hover ~ svg #Lats path {
+.muscle-groups label[for='lats']:hover ~ svg #Lats path {
   opacity: 0.75;
 }
 .muscle-groups .lats:checked ~ svg #Lats path {
   opacity: 0.8;
   fill: v-bind(primaryColorBind) !important;
 }
-.muscle-groups label[for="trapezius"]:hover ~ svg #Trapezius path {
+.muscle-groups label[for='trapezius']:hover ~ svg #Trapezius path {
   opacity: 0.75;
 }
 .muscle-groups .trapezius:checked ~ svg #Trapezius path {
