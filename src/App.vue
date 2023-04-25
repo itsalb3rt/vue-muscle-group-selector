@@ -29,6 +29,9 @@ const handleChangeSettings = (option) => {
 </script>
 
 <template>
+  <div>
+    <h1 style="text-align: center">Vue Muscle Group Selector</h1>
+  </div>
   <div class="row">
     <div class="col-12" style="text-align: center">
       <nav v-for="option in menuOptions" :key="option">
@@ -53,7 +56,10 @@ const handleChangeSettings = (option) => {
             selectedMenuOption === 'Multiple selection' ? true : false
           "
           :initial-values="
-            selectedMenuOption === 'Initial values' || selectedMenuOption === 'Read only' ? ['pectorals'] : []
+            selectedMenuOption === 'Initial values' ||
+            selectedMenuOption === 'Read only'
+              ? ['pectorals']
+              : []
           "
           :read-only="selectedMenuOption === 'Read only' ? true : false"
           :primaryColor="
