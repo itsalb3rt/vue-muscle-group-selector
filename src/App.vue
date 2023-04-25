@@ -1,19 +1,64 @@
 <script setup>
 import MuscleGroupSelector from './components/MuscleGroupSelector.vue';
+import { ref } from 'vue';
 
 const handleOnSelectMuscularGroup = (selection) => {
   console.log(selection); // array of selection e.g ['abs']
 };
+
+const menuOptions = [
+  'Basic',
+  'Multiple selection',
+  'Read only',
+  'Show muscles list helper',
+  'Initial values',
+  'Custom colors',
+];
+
+const selectedMenuOption = ref('Basic');
+const loading = ref(false);
+
+const handleChangeSettings = (option) => {
+  selectedMenuOption.value = option;
+  loading.value = true;
+
+  setTimeout(() => {
+    loading.value = false;
+  }, 100);
+};
 </script>
 
 <template>
+  <div class="row">
+    <div class="col-12" style="text-align: center">
+      <nav v-for="option in menuOptions" :key="option">
+        <span
+          :class="selectedMenuOption === option ? 'selected' : null"
+          @click="() => handleChangeSettings(option)"
+          href="#"
+          >{{ option }}</span
+        >
+      </nav>
+    </div>
+  </div>
   <div style="max-width: 500px; margin: 50px auto; position: relative">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12" v-if="!loading">
         <muscle-group-selector
           @on-select="handleOnSelectMuscularGroup"
-          :showMusclesListHelper="true"
-          :allowMultiple="true"
+          :showMusclesListHelper="
+            selectedMenuOption === 'Show muscles list helper' ? true : false
+          "
+          :allowMultiple="
+            selectedMenuOption === 'Multiple selection' ? true : false
+          "
+          :initial-values="
+            selectedMenuOption === 'Initial values' || selectedMenuOption === 'Read only' ? ['pectorals'] : []
+          "
+          :read-only="selectedMenuOption === 'Read only' ? true : false"
+          :primaryColor="
+            selectedMenuOption === 'Custom colors' ? 'tomato' : null
+          "
         />
       </div>
     </div>
@@ -36,5 +81,28 @@ const handleOnSelectMuscularGroup = (selection) => {
   flex-basis: 0;
   flex-grow: 1;
   max-width: 50%;
+}
+nav {
+  display: inline;
+}
+nav span {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+nav span.selected {
+  background: #000;
+  color: #fff;
 }
 </style>
