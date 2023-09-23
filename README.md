@@ -49,7 +49,8 @@ const handleOnSelectMuscularGroup = selection => {
 |-------|------|-------------|---------|
 | allowMultiple | `BOOLEAN` | If true, the user can select multiple muscle groups, if false, the user can only select one muscle group. | `false` |
 | primaryColor | `STRING` | The primary color of the component, this is the color of the selected muscle groups. | `#03001c` |
-| strokeColor | `STRING` | This is the outside line of the body | `#000` |
+| muscleColor | `STRING` | The color of the NO selected but active muscle | `#fff` |
+| strokeColor | `STRING` | This is the outside line of the body | `#4d4d4d` |
 | initialValues | `ARRAY` | Array of muscle groups to be selected by default, this is the ID of the muscle group, not the name. | `[]` |
 | showMusclesListHelper | `BOOLEAN` | If true, the helper list of the muscle groups will be shown, if false, the helper list will be hidden. | `false` |
 | showBackMuscles | `BOOLEAN` | If true, the legs muscle groups will be shown, if false, the legs muscle groups will be hidden. | `true` |
