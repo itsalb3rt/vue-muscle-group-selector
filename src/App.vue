@@ -6,6 +6,15 @@ const handleOnSelectMuscularGroup = (selection) => {
   console.log(selection); // array of selection e.g ['abs']
 };
 
+const isDark = ref(false);
+const strokeColor = ref('#000');
+
+const toggleDarkMode = () => {
+  document.body.classList.toggle('dark');
+  isDark.value = !isDark.value;
+  strokeColor.value = isDark.value ? '#fff' : '#000';
+};
+
 const menuOptions = [
   'Basic',
   'Multiple selection',
@@ -46,6 +55,22 @@ const handleChangeSettings = (option) => {
   </div>
   <div style="max-width: 500px; margin: 50px auto; position: relative">
     <div class="row">
+      <div class="col-12">
+        <button
+          :style="`
+            background: ${isDark ? '#000' : '#fff'}};
+            color: ${isDark ? '#fff' : '#000'}}};
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+          `"
+          @click="toggleDarkMode"
+        >
+          Toggle dark mode
+        </button>
+      </div>
       <div class="col-12" v-if="!loading">
         <muscle-group-selector
           @on-select="handleOnSelectMuscularGroup"
@@ -65,6 +90,7 @@ const handleChangeSettings = (option) => {
           :primaryColor="
             selectedMenuOption === 'Custom colors' ? 'tomato' : null
           "
+          :stroke-color="strokeColor"
         />
       </div>
     </div>
@@ -108,6 +134,11 @@ nav span {
   transition: all 0.3s ease;
 }
 nav span.selected {
+  background: #000;
+  color: #fff;
+}
+
+.dark {
   background: #000;
   color: #fff;
 }
