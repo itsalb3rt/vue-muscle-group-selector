@@ -6,13 +6,24 @@ const handleOnSelectMuscularGroup = (selection) => {
   console.log(selection); // array of selection e.g ['abs']
 };
 
-const isDark = ref(false);
+const localIsDark = localStorage.getItem('isDark');
+
+const isDark = ref(Boolean(localIsDark) || false);
 const strokeColor = ref('#000');
+const muscleColor = ref('#4d4d4d');
+
+if(localIsDark) {
+  document.body.classList.toggle('dark');
+  strokeColor.value = isDark.value ? '#fff' : '#000';
+  muscleColor.value = isDark.value ? '#fff' : '#4d4d4d';
+}
 
 const toggleDarkMode = () => {
   document.body.classList.toggle('dark');
   isDark.value = !isDark.value;
   strokeColor.value = isDark.value ? '#fff' : '#000';
+  muscleColor.value = isDark.value ? '#fff' : '#4d4d4d';
+  localStorage.setItem('isDark', isDark.value);
 };
 
 const menuOptions = [
@@ -88,9 +99,10 @@ const handleChangeSettings = (option) => {
           "
           :read-only="selectedMenuOption === 'Read only' ? true : false"
           :primaryColor="
-            selectedMenuOption === 'Custom colors' ? 'tomato' : null
+            selectedMenuOption === 'Custom colors' || isDark ? 'tomato' : null
           "
           :stroke-color="strokeColor"
+          :muscle-color="muscleColor"
         />
       </div>
     </div>
