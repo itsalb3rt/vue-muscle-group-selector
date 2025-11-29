@@ -1,6 +1,6 @@
 <template>
   <main class="muscle-groups-container">
-    <div class="muscle-groups">
+    <div class="muscle-groups" ref="muscleGroupsRef">
       <h2 class="list-title">{{ translations.arms.arms }}</h2>
       <input type="checkbox" class="biceps muscles-helper" id="biceps" />
       <label for="biceps">{{ translations.arms.biceps }}</label>
@@ -353,11 +353,12 @@ export default {
   setup(props, { emit }) {
     const musculeGroupsContainerAlignItemsBind = ref('center');
     const musculeGroupsSVGPositionBind = ref('absolute');
+    const muscleGroupsRef = ref(null);
 
-    const onSelectMuscleGroup = () => {
-      // get all the checked checkboxes
-      const checked = document.querySelectorAll(
-        '.muscle-groups input[type="checkbox"]:checked'
+    const onSelectMuscleGroup = (container) => {
+      // get all the checked checkboxes within this component instance
+      const checked = container.querySelectorAll(
+        'input[type="checkbox"]:checked'
       );
 
       // get the values of the checked checkboxes
@@ -368,34 +369,38 @@ export default {
     };
 
     onMounted(() => {
+      const container = muscleGroupsRef.value;
+      if (!container) return;
+
       // set the initial values
       props.initialValues.forEach((value) => {
-        if (document.getElementById(value)) {
-          document.getElementById(value).checked = true;
+        const checkbox = container.querySelector(`#${value}`);
+        if (checkbox) {
+          checkbox.checked = true;
         }
       });
 
-      const checkboxes = document.querySelectorAll(
-        '.muscle-groups input[type="checkbox"]'
+      const checkboxes = container.querySelectorAll(
+        'input[type="checkbox"]'
       );
 
       checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
           if (props.allowMultiple) {
-            onSelectMuscleGroup();
+            onSelectMuscleGroup(container);
             return;
           } else {
-            checkboxes.forEach((checkbox) => {
-              checkbox.checked = false;
+            checkboxes.forEach((cb) => {
+              cb.checked = false;
             });
             checkbox.checked = true;
-            onSelectMuscleGroup();
+            onSelectMuscleGroup(container);
           }
         });
       });
 
-      document
-        .querySelectorAll('.muscle-groups svg g g[id]')
+      container
+        .querySelectorAll('svg g g[id]')
         .forEach(function (group) {
 
           group.addEventListener('click', function (el) {
@@ -409,7 +414,7 @@ export default {
               id = el.target.parentNode.parentNode.id.toLowerCase();
             }
 
-            let eventInput = document.getElementById(id);
+            let eventInput = container.querySelector(`#${id}`);
 
             if (props.allowMultiple) {
               if (eventInput.checked) {
@@ -417,29 +422,29 @@ export default {
               } else {
                 eventInput.checked = true;
               }
-              onSelectMuscleGroup();
+              onSelectMuscleGroup(container);
             } else {
-              document
-                .querySelectorAll('.muscle-groups input')
+              container
+                .querySelectorAll('input')
                 .forEach(function (input) {
                   input.checked = false;
                 });
               eventInput.checked = true;
-              onSelectMuscleGroup();
+              onSelectMuscleGroup(container);
             }
           });
         });
 
       // Hide the helper list if the user doesn't want it
       if (!props.showMusclesListHelper) {
-        document
-          .querySelectorAll('.muscle-groups-container label')
+        container
+          .querySelectorAll('label')
           .forEach((el) => {
             el.style.display = 'none';
           });
 
-        document
-          .querySelectorAll('.muscle-groups-container h2.list-title')
+        container
+          .querySelectorAll('h2.list-title')
           .forEach((el) => {
             el.style.display = 'none';
           });
@@ -449,31 +454,25 @@ export default {
 
       // Hide the front muscles if the user doesn't want it
       if (!props.showFrontMuscles) {
-        document.querySelector(
-          '.muscle-groups-container #Front-Muscles'
-        ).style.display = 'none';
-        document.querySelector(
-          '.muscle-groups-container path#Front'
-        ).style.display = 'none';
+        const frontMuscles = container.querySelector('#Front-Muscles');
+        const frontPath = container.querySelector('path#Front');
+        if (frontMuscles) frontMuscles.style.display = 'none';
+        if (frontPath) frontPath.style.display = 'none';
       }
 
       // Hide the back muscles if the user doesn't want it
       if (!props.showBackMuscles) {
-        document.querySelector(
-          '.muscle-groups-container #Back-Muscles'
-        ).style.display = 'none';
-        document.querySelector(
-          '.muscle-groups-container path#Back'
-        ).style.display = 'none';
+        const backMuscles = container.querySelector('#Back-Muscles');
+        const backPath = container.querySelector('path#Back');
+        if (backMuscles) backMuscles.style.display = 'none';
+        if (backPath) backPath.style.display = 'none';
       }
 
       if (!props.showFrontMuscles && props.showBackMuscles) {
-        document.querySelector(
-          '.muscle-groups-container #Back-Muscles'
-        ).style.transform = 'translate(-100px, 0px)';
-        document.querySelector(
-          '.muscle-groups-container path#Back'
-        ).style.transform = 'translate(-100px, 0px)';
+        const backMuscles = container.querySelector('#Back-Muscles');
+        const backPath = container.querySelector('path#Back');
+        if (backMuscles) backMuscles.style.transform = 'translate(-100px, 0px)';
+        if (backPath) backPath.style.transform = 'translate(-100px, 0px)';
       }
     });
 
@@ -481,6 +480,7 @@ export default {
       primaryColorBind: props.primaryColor,
       musculeGroupsContainerAlignItemsBind,
       musculeGroupsSVGPositionBind,
+      muscleGroupsRef,
     };
   },
 };
