@@ -1,7 +1,7 @@
 {
   "name": "vue-muscle-group-selector",
   "description": "Wrapper for Vue3 with super powers of muscle group selector made by Ryan M. Poe.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "./dist/vue-muscle-group-selector.umd.js",
   "module": "./dist/vue-muscle-group-selector.mjs",
   "repository": {
